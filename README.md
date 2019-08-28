@@ -1,5 +1,8 @@
 # Data Weave RFC
+Substantial change proposals for the Whiley language must be first
+written up as an RFC and before they can be accepted.  The Request for
+Comment (RFC) process is intended to provide a peer review and voting
+process to ensure change proposals are vetted and accepted by the
+community.
 
-This repo will contain a list of wanted language changes. The idea is that everyone can propse changes to the language and we publish the upcoming changes so that anyone can contribute.
 
-So if you have an idea please send us a PR with a RFC.
