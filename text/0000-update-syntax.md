@@ -73,7 +73,17 @@ null update { case at .foo -> “hello” }
   // Key doesn’t exist
   case at .foo -> “foo”
 }
-// Returns {baz: “bar}
+// Returns {baz: “bar"}
+```
+
+
+### To add to a node that doesn't exist yet, use the upsert syntax (!):
+
+```
+{bax: "bar"} update {
+  case at .foo! -> {foo: "bar"}
+}
+// Returns {baz: "bar", foo: {foo: "bar"}}
 ```
 
 
