@@ -24,7 +24,7 @@ These features should be added to eliminate the surprises that come with dealing
 
 Which would be a `Period` literal representing 5 milliseconds.
 
-## Date Decomoposition for Periods
+## Date Decomposition for Periods
 
 Temporal instances can currently be [decomposed](https://docs.mulesoft.com/mule-runtime/4.2/dataweave-types#date_decomposition) into their composite year, month, day, hour, etc. `Period`s should be able to be decomposed the same way:
 
@@ -69,7 +69,7 @@ In addition to making the handling of temporal instances and `Period` more unifo
 decomposeTemporal(t: Time | LocalTime | Date | DateTime | LocalDateTime | Period): Object
 ```
 
-Here an example with a `DateTime`:
+Here's an example with a `DateTime`:
 
 ```
 %dw 2.0
@@ -127,7 +127,7 @@ In the event that `decomposeTemporal` is passed the wrong type, it should throw 
 
 ## A clearer distinction between temporal instances and `Period`s
 
-Currently, the documentation could be a bit more verbose about the difference between temporal instances and `Periods`. Currently, it doesn't say that `Period` represents a length of time. If the `decomposeTemporal` function is included in the language, it should be stated in the documentation that the keys returned in the object mean something conceptually different when passing a temporal instance vs a `Period`. In the case of a temporal instance, the keys represent where the instance falls on a time line, including some additional information. In the case of `Period`s the keys represent how many of each of the durations are ultimately applied to the temporal instance.
+The documentation could be a bit more verbose about the difference between temporal instances and `Periods`. It doesn't say that `Period` represents a length of time. If the `decomposeTemporal` function is included in the language, it should be stated in the documentation that the keys returned in the object mean something conceptually different when passing a temporal instance vs a `Period`. In the case of a temporal instance, the keys represent where the instance falls on a time line, including some additional information. In the case of `Period`s, the keys represent how many of each of the durations will be ultimately applied to the temporal instance.
 
 # Drawbacks
 [drawbacks]: #drawbacks
