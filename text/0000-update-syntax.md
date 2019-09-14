@@ -20,15 +20,15 @@ As this feature proposes a new syntax, and not just new functions, documentation
 
 ### Updating with literals
 
-```
+```dwl
 payload update {
-  case at .foo.bar -> “foo”
+  case at .foo.bar -> 'foo'
 }
 ```
 
 ### Updating with variable set:
 
-```
+```dwl
 payload update {
   case v at .foo.bar -> v + 5
 }
@@ -37,7 +37,7 @@ payload update {
 
 ### Updating with dollar-sign shorthand:
 
-```
+```dwl
 payload update {
   case at .foo.baz -> $ + 5
 }
@@ -46,13 +46,13 @@ payload update {
 
 ### Updating with variables in the path (paths support interpolation like Strings):
 
-```
+```dwl
 do {
-  var path = “foo”
+  var path = 'foo'
   ---
   payload update {
     // Same as .foo.bar
-    case at .”$(path)”.bar -> $ + 5
+    case at ."$(path)".bar -> $ + 5
   }
 }
 ```
@@ -60,26 +60,26 @@ do {
 
 ### Updating a null input will return null:
 
-```
-null update { case at .foo -> “hello” }
+```dwl
+null update { case at .foo -> "hello" }
 // Returns null
 ```
 
 
 ### Updating an element that doesn’t exist should return the input:
 
-```
-{baz: “bar”} update {
+```dwl
+{baz: "bar"} update {
   // Key doesn’t exist
-  case at .foo -> “foo”
+  case at .foo -> "foo"
 }
-// Returns {baz: “bar"}
+// Returns {baz: "bar"}
 ```
 
 
 ### To add to a node that doesn't exist yet, use the upsert syntax (!):
 
-```
+```dwl
 {bax: "bar"} update {
   case at .foo! -> {foo: "bar"}
 }
@@ -89,32 +89,32 @@ null update { case at .foo -> “hello” }
 
 ### Updating with a match on a repeated element:
 
-```
+```dwl
 payload update {
   case v at .foo.*bar -> v map    
     if($$ == 4)
-      “I’m the 5th element”
+      "I’m the 5th element"
     else
-      “Just another element”
+      "Just another element"
 }
 ```
 
 
 ### You can also select a single element in a selected Array:
 
-```
+```dwl
 payload update {
-  case at .foo.*bar[4] -> “I’m the 5th element”
+  case at .foo.*bar[4] -> "I’m the 5th element"
 }
 ```
 
 
 ### Updating with repeated context:
 
-```
+```dwl
 payload update {
-  case at .foo.bar -> “foo”
-  case at .foo.baz -> “bar”
+  case at .foo.bar -> "foo"
+  case at .foo.baz -> "bar"
 }
 ```
 
@@ -123,32 +123,32 @@ payload update {
 ```
 payload update {
   case at .foo -> $ update {
-    case at .bar -> “foo”
-    case at .baz -> “bar”
+    case at .bar -> "foo"
+    case at .baz -> "bar"
   }
 }
 ```
 
 Note that you cannot use this as a replacement, as it would return the result of the updated payload.foo, not updated payload:
 
-```
+```dwl
 payload.foo update { … }
 ```
 
 
 ### Updating XML attributes:
 
-```
+```dwl
 payload update {
-  case at .root.foo.@bar -> “baz”
+  case at .root.foo.@bar -> "baz"
 }
 ```
 
 ### Updating XML Namespaces (needed?):
 
-```
+```dwl
 payload update {
-  case at .foo.# -> “http://new-namespace.com”
+  case at .foo.# -> "http://new-namespace.com"
 }
 ```
 
@@ -156,7 +156,7 @@ payload update {
 
 Example input payload:
 
-```
+```xml
 <root xmlns:ns0="http://something.com">
     <a>1</a>
     <ns0:a>2</ns0:a>
@@ -166,12 +166,12 @@ Example input payload:
 
 Code:
 
-```
+```dwl
 do {
   ns ns0 http://something.com
   ---
   payload update {
-    case at .foo.ns0#a -> “foo”
+    case at .foo.ns0#a -> "foo"
   }
 }
 ```
@@ -187,13 +187,13 @@ This feature adds additional syntax to the language which is, generally speaking
 
 In addition to the `update` syntax, `update/with` functions were also considered, and implemented. For example:
 
-```
+```dwl
 payload update ["foo"] with "bar"
 ```
 
 The drawback being that users cannot use the selector syntax that they're already familiar with. Supporting things like XML attributes comes with more functions:
 
-```
+```dwl
 payload update ["foo", attr("test")] with "bar"
 ```
 
