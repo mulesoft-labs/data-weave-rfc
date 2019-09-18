@@ -14,7 +14,7 @@ These features should be added to eliminate the surprises that come with dealing
 # Documentation
 [documentation]: #documentation
 
-## Period literals
+## Period literal precision
 
 `Period` literals cannot handle millisecond precision, but literals for the `Time` and `DateTime` varieties do. `Period` literals could be made to support milliseconds like this:
 
@@ -44,7 +44,6 @@ var period = |P1Y2M3DT4H5M6S30MS|
   milliseconds : period.milliseconds,
   nanoseconds  : period.nanoseconds
 }
-
 ```
 
 Output:
@@ -125,9 +124,18 @@ Output:
 
 In the event that `decomposeTemporal` is passed the wrong type, it should throw an error.
 
-## A clearer distinction between temporal instances and `Period`s
+## `Period` documentation
 
-The documentation could be a bit more verbose about the difference between temporal instances and `Periods`. It doesn't say that `Period` represents a length of time. If the `decomposeTemporal` function is included in the language, it should be stated in the documentation that the keys returned in the object mean something conceptually different when passing a temporal instance vs a `Period`. In the case of a temporal instance, the keys represent where the instance falls on a time line, including some additional information. In the case of `Period`s, the keys represent how many of each of the durations will be ultimately applied to the temporal instance.
+The documentation could be a bit more verbose about the difference between temporal instances and `Periods`. It doesn't say that `Period` represents a length of time. It also doesn't disclose that the actual length of a `Period` is unknown until it is applied to a temporal instance. If the `decomposeTemporal` function is included in the language, it should be stated in the documentation that the keys returned in the object mean something conceptually different when passing a temporal instance vs a `Period`. In the case of a temporal instance, the keys represent where the instance falls on a time line, including some additional information. In the case of `Period`s, the keys represent how many of each of the durations will be ultimately applied to the temporal instance.
+
+In addition to this, the documentation should contain how to interpolate `Period`s. This is currently contained in examples, but I think it would get greater visability on the documentation for the `Period` type:
+
+`Period`s can be interpolated by creating a period `String` and casting it to a `Period`:
+
+```
+var days   = 5
+var period = "P1Y$(days)D" as Period
+```
 
 # Drawbacks
 [drawbacks]: #drawbacks
@@ -151,30 +159,27 @@ Definition for `CompositePeriod`
 # Rationale, Alternatives
 [rationale]: #rationale
 
-* What other designs have you considered and why did you not choose them?
-* Why is this design better than alternatives?
-* What is the impact of not adopting this change?
+For `Period`s and temporal instances it was original proposed to do something like this:
+
+```
+|2018-12-13| as Object
+```
+
+But this doesn't convey the same explicit intention that "decomposeTemporal" does.
+
+To consider what would be the cost of not adopting this RFC, we should examine the individual changes it proposes:
+
+1. **Period literals precision** - All languages that I can think of support sub-second Period times. DataWeave should support this as well. Adding milliseconds to temporal instances requires Java right now, as far as I know
+2. **Date decomposition for periods** - I don't think the cost would be very high if DW were not to adopt this
+3. **A function to decompose temporals** - Having a single function to decompose `Period`s and temporal instances would be very nice, but not necessary.
+4. **Clearer distinction between Periods and temporal instances** - I feel this one is required. The documentation doesn't formally define what a `Period` is, or how it's different from a `Date`.
 
 # Existing Implementations
 [existing-implementations]: #existing-implementations
 
 I looked into how Java 8 handles temporals (aka JodaTime), especially Periods. Java 8 handles Periods a bit differently than DW does. It makes a distinction between a `Duration` which is a period of time that does not use date-based constructs like years, months, and days. It then has a `Period` which is a period of time that does use date-based constructs.
 
-Discuss both the good and the bad of existing implementations of this feature, if applicable. A few examples:
-
-* Does this feature exist in other programming languages? What experience has their community had?
-* What lessons can we learn from existing implementations?
-* Are there any papers or posts that already discuss this?
-
 # Unresolved Questions
 [unresolved-questions]: #unresolved-questions
 
-* How will `Period`s handle things like leap years and daylight savings time?
-* How will `Period`s account for months containing between 28 and 31 days?
 * Should `decomposeTemporal` return `null` if it receives bad input?
-
-
-# Citations
-[citations]: #citations
-Rust RFC Template: https://github.com/rust-lang/rfcs/blob/master/0000-template.md
-Pony RFC Template: https://github.com/ponylang/rfcs/blob/master/0000-template.md
