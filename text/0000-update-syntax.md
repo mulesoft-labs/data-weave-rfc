@@ -189,7 +189,7 @@ do {
 
 ### Sub-Branches on Updates:
 
-```
+```dwl
 {foo: 123} update {
     case at .foo -> {bar: true}
 
@@ -203,7 +203,7 @@ do {
 
 ### Same-Branch Updates:
 
-```
+```dwl
 {foo: 123} update {
     case at .foo -> {bar: true}
 
