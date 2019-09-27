@@ -144,14 +144,6 @@ payload update {
 }
 ```
 
-### Updating XML Namespaces (needed?):
-
-```dwl
-payload update {
-  case at .foo.# -> "http://new-namespace.com"
-}
-```
-
 ### Selecting repeated element with different namespace:
 
 Example input payload:
@@ -177,6 +169,34 @@ do {
 ```
 
 
+### Sub-Branches on Updates:
+
+```
+{foo: 123} update {
+    case at .foo -> {bar: true}
+
+    // This branch will not execute because
+    // .foo.bar does not match anything on the input, {foo: 123}
+    case at .foo.bar -> {sub: 123} 
+} 
+// Returns {foo: {bar: true}}
+```
+
+
+### Same-Branch Updates:
+
+```
+{foo: 123} update {
+    case at .foo -> {bar: true}
+
+    // This branch will not execute because
+    // it was already matched
+    case at .foo -> {sub: 123} 
+} 
+// Returns {foo: {bar: true}}
+```
+
+
 # Drawbacks
 [drawbacks]: #drawbacks
 
@@ -197,7 +217,7 @@ The drawback being that users cannot use the selector syntax that they're alread
 payload update ["foo", attr("test")] with "bar"
 ```
 
-Ultimately, there's just more for uses to learn with `update/with` whereas the `update` syntax feels more intuitive.
+Ultimately, there's just more for users to learn with `update/with` whereas the `update` syntax feels more intuitive.
 
 
 # Existing Implementations
