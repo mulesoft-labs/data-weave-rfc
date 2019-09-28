@@ -18,7 +18,7 @@ The expected outcome is that DataWeave users will no longer need to know to use 
 
 As this feature proposes a new syntax, and not just new functions, documentation must adequately explain what is valid and what is invalid syntax for `update`. That being said, the leap from knowing nothing about `update`, to being able to effectively use it should be a small one. This syntax reuses a couple pieces of functuionality that DataWeave users are already familiar with, pattern matching and the selector syntax. Instead of `case is ...` this syntax uses `case at ...` followed by the afformentioned selector syntax. Here are some examples:
 
-### Updating with literals
+## Updating with literals
 
 ```dwl
 payload update {
@@ -26,7 +26,7 @@ payload update {
 }
 ```
 
-### Updating with variable set:
+## Updating with variable set:
 
 ```dwl
 payload update {
@@ -35,7 +35,7 @@ payload update {
 ```
 
 
-### Updating with dollar-sign shorthand:
+## Updating with dollar-sign shorthand:
 
 ```dwl
 payload update {
@@ -44,7 +44,7 @@ payload update {
 ```
 
 
-### Updating with variables in the path (paths support interpolation like Strings):
+## Updating with variables in the path (paths support interpolation like Strings):
 
 ```dwl
 do {
@@ -58,7 +58,7 @@ do {
 ```
 
 
-### Updating a null input will return null:
+## Updating a null input will return null:
 
 ```dwl
 null update { case at .foo -> "hello" }
@@ -66,7 +66,7 @@ null update { case at .foo -> "hello" }
 ```
 
 
-### Updating an element that doesn’t exist should return the input:
+## Updating an element that doesn’t exist should return the input:
 
 ```dwl
 {baz: "bar"} update {
@@ -76,8 +76,7 @@ null update { case at .foo -> "hello" }
 // Returns {baz: "bar"}
 ```
 
-
-### To add to a node that doesn't exist yet, use the upsert syntax (!):
+## To add to a node that doesn't exist yet, use the upsert syntax (!):
 
 ```dwl
 {bax: "bar"} update {
@@ -87,29 +86,48 @@ null update { case at .foo -> "hello" }
 ```
 
 
-### Updating with a match on a repeated element:
+
+## Updating repeated keys
+It's necessary to support repeated keys on the same Object in DataWeave. Because of this, an edge case exists where DataWeave cannot intepret what's between `case` and `->` exactly as selectors. Imagine the following example:
 
 ```dwl
-payload update {
-  case v at .foo.*bar -> v map    
-    if($$ == 4)
-      "I’m the 5th element"
-    else
-      "Just another element"
+{a: [1,2,3], a: [4,5,6]} update {
+  case at .*a -> {foo: "bar"}
 }
 ```
 
+If the user views `.*a` as functioning exactly like the multi-value selector, then the lambda would be called once with `[[1,2,3],[4,5,6]]`. This creates an ambiguity. Given that this Array could then be transformed into anything, it becomes impossible to determine how the modifications to the Array should be applied back to the original data. Does DataWeave update the first `a`, the second `a`, or both?
 
-### You can also select a single element in a selected Array:
+The solution for this requires that the "selector" syntax used in `update` functional slightly differently when matching repeated keys. The lambda on the RHS of `->` is called twice, because `.*a` matched on two values. When the lambda is called the first time, the result is applied to the first `a`, when it is called the second time, the result is applied to the second `a`. Updating individual values requires the use of a guard.
+
+### Updating all repeated keys with the same lambda
 
 ```dwl
-payload update {
-  case at .foo.*bar[4] -> "I’m the 5th element"
+{a: 1, a: 2} update {
+  case at .*a -> $ + 1
 }
+// Returns {a: 2, a: 3}
 ```
 
+### Changing a specific repeated key
 
-### Updating with repeated context:
+```dwl
+{a: 1, a: 2} update {
+  case at .*a -> if($$ == 1) $ + 1 else $
+}
+// Returns {a: 1, a: 3}
+```
+
+**OR**
+
+```dwl
+{a: 1, a: 2} update {
+  case at .*a if($$ == 1) -> $ + 1 
+}
+// Returns {a: 1, a: 3}
+```
+
+## Updating with repeated context:
 
 ```dwl
 payload update {
@@ -118,9 +136,9 @@ payload update {
 }
 ```
 
-### Factoring out repeated context (same result as above without the .foo repetition):
+## Factoring out repeated context (same result as above without the .foo repetition):
 
-```
+```dwl
 payload update {
   case at .foo -> $ update {
     case at .bar -> "foo"
@@ -136,15 +154,15 @@ payload.foo update { … }
 ```
 
 
-### Updating XML attributes:
+## Updating XML attributes:
 
 ```dwl
 payload update {
-  case at .root.foo.@bar -> "baz"
+  case at .root.foo.@bar -> “baz”
 }
 ```
 
-### Selecting repeated element with different namespace:
+## Selecting repeated element with different namespace:
 
 Example input payload:
 
@@ -171,7 +189,7 @@ do {
 
 ### Sub-Branches on Updates:
 
-```
+```dwl
 {foo: 123} update {
     case at .foo -> {bar: true}
 
@@ -185,7 +203,7 @@ do {
 
 ### Same-Branch Updates:
 
-```
+```dwl
 {foo: 123} update {
     case at .foo -> {bar: true}
 
