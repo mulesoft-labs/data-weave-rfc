@@ -92,11 +92,11 @@ It's necessary to support repeated keys on the same Object in DataWeave. Because
 
 ```dwl
 {a: [1,2,3], a: [4,5,6]} update {
-  case at .a* -> {foo: "bar"}
+  case at .*a -> {foo: "bar"}
 }
 ```
 
-If the user views `.a*` as functioning exactly like the multi-value selector, then the lambda would be called once with `[[1,2,3],[4,5,6]]`. This creates an ambiguity. Given that this Array could then be transformed into anything, it becomes impossible to determine how the modifications to the Array should be applied back to the original data. Does DataWeave update the first `a`, the second `a`, or both?
+If the user views `.*a` as functioning exactly like the multi-value selector, then the lambda would be called once with `[[1,2,3],[4,5,6]]`. This creates an ambiguity. Given that this Array could then be transformed into anything, it becomes impossible to determine how the modifications to the Array should be applied back to the original data. Does DataWeave update the first `a`, the second `a`, or both?
 
 The solution for this requires that the "selector" syntax used in `update` functional slightly differently when matching repeated keys. The lambda on the RHS of `->` is called twice, because `.*a` matched on two values. When the lambda is called the first time, the result is applied to the first `a`, when it is called the second time, the result is applied to the second `a`. Updating individual values requires the use of a guard.
 
@@ -104,7 +104,7 @@ The solution for this requires that the "selector" syntax used in `update` funct
 
 ```dwl
 {a: 1, a: 2} update {
-  case at .a* -> $ + 1
+  case at .*a -> $ + 1
 }
 // Returns {a: 2, a: 3}
 ```
