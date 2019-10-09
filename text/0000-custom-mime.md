@@ -30,6 +30,12 @@ output text as text/markdown
 output json as application/my-custom-type streaming=true 
 ```
 
+## With type
+
+```dwl
+output xml:SomeType as text/html
+```
+
 # Drawbacks
 [drawbacks]: #drawbacks
 
@@ -51,6 +57,12 @@ output text/plain mimeType=text/markdown
 ```
 
 However, `@` is not as clear regarding the behavior to expect: `as` suggests that while `text` will be the output, it will be handled with `text/markdown`. On the other hand, using an option would require two mime types to be declared on the same line which creates confusion.
+
+Another syntax option is to use `with`:
+
+```dwl
+output xml:SomeType with text/html
+```
 
 # Unresolved Questions
 [unresolved-questions]: #unresolved-questions
