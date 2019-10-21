@@ -18,22 +18,28 @@ As this feature proposes a new syntax for defining the output section, documenta
 
 Here are some examples:
 
+## Format
+
+```dwl
+output csv
+```
+
 ## Format and mime type
 
 ```dwl
-output text as text/markdown
+output text/markdown with text
 ```
 
 ## With options
 
 ```dwl
-output json as application/my-custom-type streaming=true 
+output application/my-custom-type with json streaming=true 
 ```
 
 ## With type
 
 ```dwl
-output xml:SomeType as text/html
+output :SomeType text/html with xml
 ```
 
 # Drawbacks
@@ -44,10 +50,14 @@ This feature adds additional syntax which is only relevant when executing within
 # Rationale, Alternatives
 [rationale]: #rationale
 
-A different possible syntax was considered:
+Different possible syntax were considered:
 
 ```dwl
 output text @ text/markdown
+```
+
+```dwl
+output text as text/markdown
 ```
 
 As well as using options:
@@ -56,13 +66,8 @@ As well as using options:
 output text/plain mimeType=text/markdown
 ```
 
-However, `@` is not as clear regarding the behavior to expect: `as` suggests that while `text` will be the output, it will be handled with `text/markdown`. On the other hand, using an option would require two mime types to be declared on the same line which creates confusion.
+However, `@` is not as clear regarding the behavior to expect: `with` suggests that while `text` will be the output, it will be handled with `text/markdown`. On the other hand, using an option would require two mime types to be declared on the same line which creates confusion. The `as` option does not work well with the type declaration as it is not clear whether the format should be declared before or after the type.
 
-Another syntax option is to use `with`:
-
-```dwl
-output xml:SomeType with text/html
-```
 
 # Unresolved Questions
 [unresolved-questions]: #unresolved-questions
