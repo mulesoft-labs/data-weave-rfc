@@ -4,43 +4,81 @@
 # Summary
 [summary]: #summary
 
-This feature adds an way to define the output mime type separetely from the output data format.
+This feature adds a way to define the output mime type separately from the output data format. At the same time, it represents an opportunity to add a simpler way of defining formats for both output and inputs.
 
 # Motivation
 [motiviation]: #motiviation
 
-Under certain cirsumstances and particularly when using DataWeave within Mule, users would like to use a custom mime type for their output, for example, `application/edifact` to replace an `application/flatfile` output. To do this today they are force to retype the output with a `set-payload` component.
+Under certain circumstances and particularly when using DataWeave within Mule, users would like to use a custom mime type for their output, for example, `application/edifact` to replace an `application/flatfile` output. To do this today they are force to retype the output with a `set-payload` component.
 
 # Documentation
 [documentation]: #documentation
 
-As this feature proposes a new syntax for defining the output section, documentation must adequately explain these changes. However, the usual syntax would still be valid and the use of the feature will probably be quite limited. The feature also requires documenting the names of all data formats since they will be use to id them. The names will be standarize to be entirely lowercase.
+As this feature proposes a new syntax for defining the output section, documentation must adequately explain these changes. However, the usual syntax would still be valid and the use of the feature will probably be quite limited. The feature also requires documenting the names of all data formats since they will be use to id them. The names will be standardize to be entirely lowercase.
 
 Here are some examples:
 
-## Format
+## Output format
 
 ```dwl
 output csv
 ```
 
-## Format and mime type
+## Output format and mime type
 
 ```dwl
 output text/markdown with text
 ```
 
-## With options
+## Output with options
 
 ```dwl
 output application/my-custom-type with json streaming=true 
 ```
 
-## With type
+## Output with type
 
 ```dwl
 output :SomeType text/html with xml
 ```
+
+## Input format
+
+```dwl
+input payload json
+```
+
+## Input with options
+
+```dwl
+input payload json streaming=true 
+```
+
+## Input with type
+
+```dwl
+input payload : Array<String> json
+```
+
+## Data Format Names
+
+| Mime Type                         | Name        |
+|:----------------------------------|:-----------:|
+| application/dw                    | dw          |
+| application/json                  | json        |
+| application/xml                   | xml         |
+| application/xml                   | csv         |
+| application/xlsx                  | excel       |
+| application/avro                  | avro        |
+| application/flatfile              | flatfile    |
+| application/java                  | java        |
+| application/octet-stream          | binary      |
+| application/x-ndjson              | ndjson      |
+| application/x-www-form-urlencoded | urlencoded  |
+| multipart/*                       | multipart   |
+| text/plain                        | text        |
+| application/yaml                  | yaml        |
+| text/x-java-properties            | properties  |
 
 # Drawbacks
 [drawbacks]: #drawbacks
