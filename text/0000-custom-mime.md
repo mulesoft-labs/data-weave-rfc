@@ -33,7 +33,7 @@ output text/markdown with text
 ## Output with options
 
 ```dwl
-output application/my-custom-type with json streaming=true 
+output application/my-custom-type with json streaming=true
 ```
 
 ## Output with type
@@ -51,7 +51,7 @@ input payload json
 ## Input with options
 
 ```dwl
-input payload json streaming=true 
+input payload json streaming=true
 ```
 
 ## Input with type
@@ -67,7 +67,7 @@ input payload : Array<String> json
 | application/dw                    | dw          |
 | application/json                  | json        |
 | application/xml                   | xml         |
-| application/xml                   | csv         |
+| application/csv                   | csv         |
 | application/xlsx                  | excel       |
 | application/avro                  | avro        |
 | application/flatfile              | flatfile    |
@@ -75,7 +75,7 @@ input payload : Array<String> json
 | application/octet-stream          | binary      |
 | application/x-ndjson              | ndjson      |
 | application/x-www-form-urlencoded | urlencoded  |
-| multipart/*                       | multipart   |
+| multipart/form-data               | multipart   |
 | text/plain                        | text        |
 | application/yaml                  | yaml        |
 | text/x-java-properties            | properties  |
