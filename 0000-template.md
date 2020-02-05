@@ -7,7 +7,7 @@
 A paragraph describing the feature
 
 # Motivation
-[motiviation]: #motiviation
+[motivation]: #motivation
 
 Why should this feature be added? What issues does it help solve? What is the expected outcome?
 
@@ -47,7 +47,7 @@ Discuss both the good and the bad of existing implementations of this feature, i
 [unresolved-questions]: #unresolved-questions
 
 * What parts of the design do you expect to resolve through the RFC process before this feature gets implemented?
-* What related issues do you consider out of scope for this RFB that could be address in the future?
+* What related issues do you consider out of scope for this RFC that could be address in the future?
 * Have you considered how the feature will work outside of the scope of MuleSoft applications?
 
 
