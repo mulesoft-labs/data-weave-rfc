@@ -4,7 +4,7 @@
 # Summary
 [summary]: #summary
 
-This feature adds support for using literal values as types. This means that for example the String `"foo"`, the Number `200`, or the Boolean `false` can be used as types. Combined with union types, this feature lets DW to have an enumeration of literal values as types. 
+This feature adds support for literal types. A literal type is a type that represents exactly one value. This means that for example the String `"foo"` can be represented with the type `"foo"`. Combined with union types, this feature lets DW to represent an enumeration of literal values as a type. 
 
 # Motivation
 [motivation]: #motivation
@@ -13,8 +13,6 @@ This feature should be added to be able to let the users declare types as a fini
 This type can be used inside a variable declaration, function type parameter, type declaration, pattern matching with types, allowing the user to not have to check if a value is contained in that finite set of allowed values because the type system would do that for them.
 # Documentation
 [documentation]: #documentation
-
-A literal type is a type that represents exactly one value, e.g. one specific string or number.
 
 The following literal types have been added to the type system:
 - String literal types
@@ -26,7 +24,8 @@ For example you could declare something like this:
 ## Declaring a type alias of union of literals
 
 ```
-type Days = "Monday" | "Tuesday | "Wednesday" | "Thursday" | "Friday"
+type Weekdays = "Monday" | "Tuesday | "Wednesday" | "Thursday" | "Friday"
+type AllDays = "Monday" | "Tuesday | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"
 ```
 
 ## Variable that accept only the specific literal values
