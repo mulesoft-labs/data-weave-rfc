@@ -24,8 +24,8 @@ For example you could declare something like this:
 ## Declaring a type alias of union of literals
 
 ```
-type Weekdays = "Monday" | "Tuesday | "Wednesday" | "Thursday" | "Friday"
-type AllDays = "Monday" | "Tuesday | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"
+type Weekdays = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday"
+type AllDays = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"
 ```
 
 ## Variable that accept only the specific literal values
