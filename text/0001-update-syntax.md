@@ -1,5 +1,9 @@
 * Feature Name: update-syntax
 * Start Date: 2019-09-03
+* Contributors:
+  * Josh Erney
+  * Mariano De Achaval
+  * Agustin Mendez
 
 # Summary
 [summary]: #summary
@@ -7,7 +11,7 @@
 This feature adds an easy way to update single values in nested data structures without requiring the end-user to have knowledge of functional recursion.
 
 # Motivation
-[motiviation]: #motiviation
+[motivation]: #motivation
 
 This feature should be added because currently an end-user needs to know about functional recursion and probably pattern matching should they want to update a single field in a data structure without touching any of the other ones. This is a problem because DataWeave currently makes a simple, commonly used pattern (updating a single value in a nested data structure) and puts it out of reach of your average integration programmer than is not familiar with functional programming (FP).
 

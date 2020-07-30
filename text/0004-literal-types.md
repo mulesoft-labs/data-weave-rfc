@@ -1,5 +1,7 @@
 * Feature Name: literal-types
 * Start Date: 2020-01-30
+* Contributors:
+  * Christian Chibana
 
 # Summary
 [summary]: #summary

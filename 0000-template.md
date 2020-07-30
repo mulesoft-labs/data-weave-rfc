@@ -1,5 +1,7 @@
 * Feature Name: (give your feature a unique name e.g., easy-updates)
 * Start Date: (today's day, yyyy-MM-dd)
+* Contributors:
+  * (Contributor name)
 
 # Summary
 [summary]: #summary

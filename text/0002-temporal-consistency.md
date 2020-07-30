@@ -1,5 +1,7 @@
 * Feature Name: period-datetime-consistency
 * Start Date: (2019-09-10)
+* Contributors:
+  * Josh Erney
 
 # Summary
 [summary]: #summary
@@ -7,7 +9,7 @@
 Currently, DW can be a bit inconsistent when dealing with temporal objects like `Date`, `DateTime`, `LocalDateTime`, `Time`, `LocalTime`, and `Period`. I'll refer to `Date`, `DateTime`, `LocaldateTime`, `Time`, and `LocalTime` as "temporal instances" throughout the RFC, as they identify a specific point in time. This RFC is a proposal on how that can be addressed.
 
 # Motivation
-[motiviation]: #motiviation
+[motivation]: #motivation
 
 These features should be added to eliminate the surprises that come with dealing with temporal objects.
 

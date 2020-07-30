@@ -1,5 +1,7 @@
 * Feature Name: custom-mime
 * Start Date: 2019-10-04
+* Contributors:
+  * Ana Felisatti
 
 # Summary
 [summary]: #summary
@@ -7,7 +9,7 @@
 This feature adds a way to define the output mime type separately from the output data format. At the same time, it represents an opportunity to add a simpler way of defining formats for both output and inputs.
 
 # Motivation
-[motiviation]: #motiviation
+[motivation]: #motivation
 
 Under certain circumstances and particularly when using DataWeave within Mule, users would like to use a custom mime type for their output, for example, `application/edifact` to replace an `application/flatfile` output. To do this today they are force to retype the output with a `set-payload` component.
 
