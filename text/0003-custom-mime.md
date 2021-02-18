@@ -35,7 +35,7 @@ output text/markdown with text
 ## Output with options
 
 ```dwl
-output application/my-custom-type with json streaming=true
+output application/my-custom-type with json indent=false
 ```
 
 ## Output with type
