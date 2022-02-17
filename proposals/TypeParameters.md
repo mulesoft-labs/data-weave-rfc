@@ -12,7 +12,7 @@ fun head<T>(a: Array<T>): T = a[0]
 var a = head([random() as String])
 ```
 
-In this case the type of a is going to be inferred as `String` this is because the type of head function is 
+In this case the type of `T` is going to be inferred as `String` this is because the type of head function is 
 
 `<T>(Array<T>) -> T` and is being applied with `(Array<String>)`
 
