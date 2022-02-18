@@ -68,3 +68,34 @@ defaultValue<String>("2")("a")
 
 This will start working as now `defaultValue<String>` will replace T with String and then result will be `(String) -> String`
 
+
+### Validations
+
+
+### All or nothing
+
+
+We are only going to allow to either specify all the type parameters or non but not to parcially apply.
+
+So for example
+
+```
+fun test<T, Q>(a: T, b: Q): {a: T, b: Q} = ???
+```
+
+in this case is valid `test("Mariano", 32)` or `test<String, Number>("Mariano", 32)` but `test<String>("Mariano", 32)` is going to be invalid
+
+this will simplify the implementation for now.
+
+
+### Binding should be valid replacements
+
+
+We need to validate that the specified substitution is valid
+
+```
+fun test<T <: String, Q>(a: T, b: Q): {a: T, b: Q} = ???
+```
+
+In this case `test<"Mariano", Number>("Mariano", 32)` is valid as `"Mariano" < String` but `test<Number, Number>(123, 32)` should complain as `Number` is not a valid subsitution for `T` as `Number < String` is *false*
+
