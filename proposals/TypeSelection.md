@@ -5,7 +5,7 @@ The idea of this proposal is to describe a way to be able to do `.` selection ov
 
 *For example*
 
-```
+```dataweave
 type User = {name: String}
 
 type NameType = User.name
@@ -23,7 +23,7 @@ For static selections we should support both with and without namesapce. A quest
 
 *For example*
 
-```
+```dataweave
 ns ns1 http://acme.com
 
 type User = {
@@ -39,7 +39,7 @@ If the type selection follows the runtime semantics type `A` should be String, b
 
 So to have the `String` type the expression should be like
 
-```
+```dataweave
 ns ns1 http://acme.com
 
 type User = {
@@ -56,7 +56,7 @@ For dynamic selections this can be achieved with the mix of type parameters + li
 
 *For example*
 
-```
+```dataweave
 fun test<T <: String, Q :< {}>(fieldName: T, a: Q): Q[T] = a[fieldName]
 ```
 
