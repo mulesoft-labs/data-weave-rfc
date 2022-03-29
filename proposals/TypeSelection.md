@@ -111,7 +111,8 @@ So for example for a schema like
 We can translate this schema in a type like
 
 *xmlschema!MySchema*
-```
+
+```dataweave
 ns ns1 http://tempuri.org/PurchaseOrderSchema.xsd
 type ROOT = {
     ns1#PurchaseOrder @(OrderDate: Date): {
