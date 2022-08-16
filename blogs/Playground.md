@@ -48,28 +48,28 @@ There are several functions in the DW language that allow the user to do things 
 
 For example, 'dw::System::envVars' requires the 'Environment' privilege to execute.
 
-'''
+```
 @RuntimePrivilege(requires = "Environment").
 fun envVars(): dictionary = native("system::env")
-'''
+```
 
 If we run this script on the playground
 
-'''
+```
 %dw 2.0 output application/json
 ---
 dw::System::envVars()
-'''
+```
 
 fails with the reason that the permission'Enviroment' privilege was not granted.
 
-'''
+```
 The specified required privilege: 'Environment' was not granted for this execution.
 
 59| @Interceptor(interceptorFunction = "@native system::SecurityManagerCheckFunctionValue") ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Trace: at dw::Core::envVars ( line: 59, column: 36) at main::main ( line: 4, column: 1)
 
-'''
+```
 
 With the new feature, we have added a configuration to the 'run' function where we can specify what permissions are granted for this execution. This way we can grant different privileges to the HTTP server than to the script being executed.
 
