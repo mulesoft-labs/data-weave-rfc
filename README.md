@@ -1,13 +1,17 @@
 # Data Weave RFC
 
 Substantial change proposals for the DataWeave language must be first
-written up as an RFC and before they can be accepted.  The Request for
+written up as an RFC before they can be accepted.  The Request for
 Comment (RFC) process is intended to provide a peer review and voting
 process to ensure change proposals are vetted and accepted by the
-community.
+community. We acknowledge that proposals might require extensive discussions
+even before being written up, and encourage the use of [issues](https://github.com/mulesoft-labs/data-weave-rfc/issues) as a way to
+engage in such discussions.
 
 ## The Process
 [process]: #process
+
+If you'd like the subject to be discussed before jumping into a formal RFC, you can create an [issue](https://github.com/mulesoft-labs/data-weave-rfc/issues/new) explaining the idea or the problem you'd like to solve. A corresponding [proposal](https://github.com/mulesoft-labs/data-weave-rfc/tree/master/proposals) can be merged simultaneously to later expedite the RFC process. Once you are ready to move forward, the proper RFC can be created.
 
 To get a substaintial change accepted into the DataWeave language, you must first get the corresponding RFC merged into this repository as a markdown file. At this point the RFC is "active" and may be implemented and eventually included in DataWeave. 
 
@@ -31,4 +35,4 @@ cp 0000-template.md text/0000-my-feature.md
 ## Acknowledgements
 [acknowledgements]: #acknowledgements
 
-Inspiration for this RFC process is taking from the processes used by Posy, Whiley, and Rust
+Inspiration for this RFC process is taken from the processes used by [Pony](https://github.com/ponylang/rfcs), [Whiley](https://github.com/Whiley/RFCs), and [Rust](https://github.com/rust-lang/rfcs#reviewing-rfcs).
