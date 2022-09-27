@@ -4,7 +4,7 @@ The DataWeave Language is in the process of being open-sourced. You can read our
 
 Also if you want to be part of an Early Access Program:
  1. Join our community [Slack](https://join.slack.com/t/dataweavelanguage/shared_invite/zt-1f3xmq8n6-MVoUj7dDamxyu_Zyf62ERQ)
- 2. Join the opensource slack channel
+ 2. Join the `#opensource` channel
 
 For more news and all things DataWeave, visit our [site](https://dataweave.mulesoft.com/) 
 
