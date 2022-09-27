@@ -14,3 +14,7 @@ The problem with this approach is
 We need to start generating bytecode and stop interpreting the code. This is easier to say than done. We also need to figure out a way to do this progressly as it will be super hard to compile all the features that DW language support. 
 
 
+## Architecture 
+
+A possible solution to this could be to write a compiler plugin that analyzes the dw functions of the modules and compiles into bytecode the functions that are using the subset of features that we support compaling, and register them as native. This way we can do a progressive implementation and we can start taking advantage of this features from the day 1. It is also easy to priortize what building blocks needs to be implemented.
+
