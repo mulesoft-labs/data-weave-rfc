@@ -169,7 +169,10 @@ trait BinaryFunction[T, Q] {
 
 
 |With Wrapper | Without|
+|---|---|
 |345ms | 128ms|
+
+
 
 This is by no means a number that we should interpolate to real use cases but it give us the sense that it will make a big difference in several use cases.
 
