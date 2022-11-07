@@ -115,17 +115,19 @@ We can translate this schema in a type like
 ```dataweave
 ns ns1 http://tempuri.org/PurchaseOrderSchema.xsd
 type ROOT = {
-    ns1#PurchaseOrder @(OrderDate: Date): {
-      ns1#ShipTo: USAAddressDef.ns1#USAddress,
-      ns1#BillTo: USAAddressDef.ns1#USAddress,
-    }
+   ns1#PurchaseOrderType: {
+      ns1#PurchaseOrder @(OrderDate: Date): {
+        ns1#ShipTo @(country: String): USAAddressDef.ns1#USAddress,
+        ns1#BillTo @(country: String): USAAddressDef.ns1#USAddress,
+      }
+  }
 }
 
 type USAddressDef = {
-    ns1#USAddress @(country: String): {
+    ns1#USAddress: {
       name: String,
       street: String,
-      city: String
+      city: String,
       state: String,
       zip: Number
     }
@@ -136,9 +138,32 @@ type USAddressDef = {
 And then reference each type using selectors
 
 ```dataweave
+output application/xml
 import * from  xmlschema!MySchema
+ns ns1 http://tempuri.org/PurchaseOrderSchema.xsd
 
-type Orders = ROOT.ns1#PurchaseOrder
+type Order = ROOT.ns1#PurchaseOrderType
+var fixedAddress: USAddressDef.ns1#USAddress = {
+      name: "Simpsons",
+      street: "Avenida Siempreviva",
+      city: "Pilar",
+      state: "Buenos Aires",
+      zip: 1636
+}
+var orders: Array<Order> = [
+{
+   ns1#PurchaseOrder @(OrderDate: |2020-10-01|): {
+        ns1#ShipTo @(country: "Argentina"): fixedAddress,
+        ns1#BillTo @(country: "Argentina"): fixedAddress
+      },
+   ns1#PurchaseOrder @(OrderDate: |2020-10-02|): {
+        ns1#ShipTo @(country: "Argentina"): fixedAddress,
+        ns1#BillTo @(country: "Argentina"): fixedAddress
+      }
+}
+]
+---
+"PurchaseOrders": orders
 ```
 
 
